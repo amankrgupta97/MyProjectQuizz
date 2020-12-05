@@ -26,7 +26,7 @@ SECRET_KEY = 'vwunwr$hf_r()t_=htfm_r90xro9k9rv_u_o-o@f21oe$++=-w'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+AUTH_USER_MODEL = 'accounts.User'
 
 # Application definition
 
@@ -37,7 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'knox',
     'nested_admin',
+    'accounts',
     'quiz',
 ]
 
@@ -50,7 +52,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': ('knox.auth.TokenAuthentication',),
+    'UNICODE_JSON': False
+}
 ROOT_URLCONF = 'quizzbizz.urls'
 
 TEMPLATES = [

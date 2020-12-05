@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User
+from django.conf import settings
 from django.db import models
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
@@ -40,7 +40,7 @@ class Answer(models.Model):
 
 
 class QuizTaker(models.Model):
-    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
     quiz = models.ForeignKey(Quiz,on_delete=models.CASCADE)
     score = models.IntegerField(default=0)
     completed = models.BooleanField(default=False)
@@ -54,7 +54,7 @@ class QuizTaker(models.Model):
 class UserAnswer(models.Model):
     quiz_taker = models.ForeignKey(QuizTaker,on_delete=models.CASCADE)
     question = models.ForeignKey(Question,on_delete=models.CASCADE)
-    answer = models.ForeignKey(Answer,on_delete=models.CASCADE)
+    answer = models.ForeignKey(Answer,on_delete=models.CASCADE,null=True)
    
     def __str__(self):
         
